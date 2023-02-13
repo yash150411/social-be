@@ -2,6 +2,7 @@ import express, { Router } from 'express';
 import authRoute from './auth.route';
 import docsRoute from './swagger.route';
 import userRoute from './user.route';
+import postRoute from './post.route';
 import config from '../../config/config';
 
 const router = express.Router();
@@ -20,6 +21,10 @@ const defaultIRoute: IRoute[] = [
     path: '/users',
     route: userRoute,
   },
+  {
+    path: '/post',
+    route: postRoute,
+  },
 ];
 
 const devIRoute: IRoute[] = [
@@ -34,7 +39,7 @@ defaultIRoute.forEach((route) => {
   router.use(route.path, route.route);
 });
 
-/* istanbul ignore next */
+
 if (config.env === 'development') {
   devIRoute.forEach((route) => {
     router.use(route.path, route.route);

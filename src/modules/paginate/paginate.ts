@@ -1,5 +1,5 @@
 /* eslint-disable no-param-reassign */
-import { Schema, Document } from 'mongoose';
+import { Document } from 'mongoose';
 
 export interface QueryResult {
   results: Document[];
@@ -17,7 +17,7 @@ export interface IOptions {
   page?: number;
 }
 
-const paginate = (schema: Schema) => {
+const paginate = (schema: any) => {
   /**
    * @typedef {Object} QueryResult
    * @property {Document[]} results - Results found
@@ -66,8 +66,8 @@ const paginate = (schema: Schema) => {
     const page = options.page && parseInt(options.page.toString(), 10) > 0 ? parseInt(options.page.toString(), 10) : 1;
     const skip = (page - 1) * limit;
 
-    const countPromise = this.countDocuments(filter).exec();
-    let docsPromise = this.find(filter).sort(sort).skip(skip).limit(limit).select(project);
+    const countPromise: any = this.countDocuments(filter).exec();
+    let docsPromise : any = this.find(filter).sort(sort).skip(skip).limit(limit).select(project);
 
     if (options.populate) {
       options.populate.split(',').forEach((populateOption: any) => {
